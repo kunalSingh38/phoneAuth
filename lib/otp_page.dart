@@ -21,6 +21,7 @@ class _OTPVerifyState extends State<OTPVerify> {
       appBar: AppBar(
         title: Text("OTP Verification"),
       ),
+      backgroundColor: Color(0xFFe7e5ee),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -43,7 +44,7 @@ class _OTPVerifyState extends State<OTPVerify> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  contentPadding: EdgeInsets.all(2),
+                  contentPadding: EdgeInsets.all(5),
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
                       borderRadius: BorderRadius.circular(10)),

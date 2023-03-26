@@ -46,157 +46,200 @@ class _LoginPageState extends State<LoginPage> {
         appBar: AppBar(
           title: Text("Login"),
         ),
+        backgroundColor: Color(0xFFe7e5ee),
         body: loading
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      // SizedBox(width: 10),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: Card(
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: TextFormField(
-                              // onTap: () {
-                              //   getPhoneNumber();
-                              // },
-                              onChanged: (value) {
-                                if (value.length == 10) {
-                                  FocusScope.of(context).unfocus();
-                                }
-                              },
-                              controller: loginPhone,
-                              keyboardType: TextInputType.phone,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w700),
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                contentPadding: EdgeInsets.all(2),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(10)),
-                                hintText: "Enter mobile number*",
-                                hintStyle: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700),
-                                prefixIcon: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: DropdownButton<String>(
-                                      value: _selectedCountryCode,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _selectedCountryCode =
-                                              value.toString();
-                                        });
-                                      },
-                                      elevation: 9,
-                                      items: code
-                                          .map(
-                                            (e) => DropdownMenuItem(
-                                              value: e['dial_code'].toString(),
-                                              child: Text(
-                                                e['dial_code'].toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black),
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Phone Authentication",
+                      style: TextStyle(fontSize: 30),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Welcome Back\nLogin",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey[700]),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      children: [
+                        // SizedBox(width: 10),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            child: Card(
+                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: TextFormField(
+                                // onTap: () {
+                                //   getPhoneNumber();
+                                // },
+                                onChanged: (value) {
+                                  if (value.length == 10) {
+                                    FocusScope.of(context).unfocus();
+                                  }
+                                },
+                                controller: loginPhone,
+                                keyboardType: TextInputType.phone,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w700),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  contentPadding: EdgeInsets.all(2),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  hintText: "Enter mobile number*",
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey[400],
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700),
+                                  prefixIcon: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: DropdownButton<String>(
+                                        value: _selectedCountryCode,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _selectedCountryCode =
+                                                value.toString();
+                                          });
+                                        },
+                                        elevation: 9,
+                                        items: code
+                                            .map(
+                                              (e) => DropdownMenuItem(
+                                                value:
+                                                    e['dial_code'].toString(),
+                                                child: Text(
+                                                  e['dial_code'].toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.black),
+                                                ),
                                               ),
-                                            ),
-                                          )
-                                          .toList()),
+                                            )
+                                            .toList()),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BlocConsumer<AuthCubit, AuthState>(
-                      listener: (context, state) {
-                    if (state is AuthCodeSentState) {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => OTPVerify()));
-                    }
-                  }, builder: ((context, state) {
-                    if (state is AuthLoadingState) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: SizedBox(
-                          width: MediaQuery.of(context).size.width / 1.25,
-                          height: 45,
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Colors.green[700])),
-                              onPressed: () async {
-                                bool isConnected =
-                                    await InternetConnectionChecker()
-                                        .hasConnection;
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BlocConsumer<AuthCubit, AuthState>(
+                        listener: (context, state) {
+                      if (state is AuthCodeSentState) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OTPVerify()));
+                      }
+                    }, builder: ((context, state) {
+                      if (state is AuthLoadingState) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.25,
+                            height: 45,
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.green[700])),
+                                onPressed: () async {
+                                  bool isConnected =
+                                      await InternetConnectionChecker()
+                                          .hasConnection;
 
-                                if (isConnected) {
-                                  String phoneNo =
-                                      _selectedCountryCode.toString() +
-                                          loginPhone.text.toString();
-                                  BlocProvider.of<AuthCubit>(context)
-                                      .sentOTP(phoneNo);
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content:
-                                              Text("No Internet Connection")));
-                                }
-                              },
-                              child: Text(
-                                "Sign In",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400, fontSize: 16),
-                              ))),
-                    );
-                  })),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.25,
-                        height: 45,
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Colors.green[700])),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyForm()));
-                            },
+                                  if (isConnected) {
+                                    String phoneNo =
+                                        _selectedCountryCode.toString() +
+                                            loginPhone.text.toString();
+                                    BlocProvider.of<AuthCubit>(context)
+                                        .sentOTP(phoneNo);
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                "No Internet Connection")));
+                                  }
+                                },
+                                child: Text(
+                                  "Sign In",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16),
+                                ))),
+                      );
+                    })),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MyForm()));
+                      },
+                      child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 10, 25, 10),
                             child: Text(
                               "Sign Up",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 16),
-                            ))),
-                  )
-                ],
+                                  fontSize: 16, color: Colors.grey[800]),
+                            ),
+                          )),
+                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 30),
+                    //   child: SizedBox(
+                    //       width: MediaQuery.of(context).size.width / 1.25,
+                    //       height: 45,
+                    //       child: ElevatedButton(
+                    //           style: ButtonStyle(
+                    //               backgroundColor: MaterialStateProperty.all(
+                    //                   Colors.green[700])),
+                    //           onPressed: () {
+                    //             Navigator.push(
+                    //                 context,
+                    //                 MaterialPageRoute(
+                    //                     builder: (context) => MyForm()));
+                    //           },
+                    //           child: Text(
+                    //             "Sign Up",
+                    //             style: TextStyle(
+                    //                 fontWeight: FontWeight.w400, fontSize: 16),
+                    //           ))),
+                    // )
+                  ],
+                ),
               ));
   }
 }
