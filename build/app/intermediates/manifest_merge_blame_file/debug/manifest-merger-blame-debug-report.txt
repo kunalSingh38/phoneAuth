@@ -34,7 +34,7 @@
 23-->[androidx.core:core:1.6.0] /Users/kunalsingh/.gradle/caches/transforms-3/aee6bcf100250b4da6af345dbf21bc13/transformed/core-1.6.0/AndroidManifest.xml:24:18-86
 24        android:debuggable="true"
 25        android:icon="@mipmap/ic_launcher"
-26        android:label="phone_auth_firebase" >
+26        android:label="Phone Auth" >
 27        <activity
 28            android:name="com.auth.phone_auth_firebase.MainActivity"
 29            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

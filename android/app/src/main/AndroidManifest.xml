@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.auth.phone_auth_firebase">
    <application
-        android:label="phone_auth_firebase"
+        android:label="Phone Auth"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
