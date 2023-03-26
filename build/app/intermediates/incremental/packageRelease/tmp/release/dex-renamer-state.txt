@@ -1,0 +1,4 @@
+#Sun Mar 26 13:20:24 IST 2023
+base.0=/Users/kunalsingh/Development/Latest_Projects/phone_auth_firebase/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
